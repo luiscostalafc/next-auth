@@ -1,8 +1,10 @@
 import { FormEvent, useState } from "react";
-import styles from "../../styles/home.module.scss";
+import type { GetServerSideProps, NextPage } from "next";
 
-import type { NextPage } from "next";
 import { useAuth } from "../contexts/AuthContext";
+
+import styles from "../../styles/home.module.scss";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 const Home: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -39,3 +41,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(
+  async (ctx) => {
+    return {
+      props: {},
+    };
+  }
+);
